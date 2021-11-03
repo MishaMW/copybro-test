@@ -13,7 +13,7 @@ class User {
         else if ($phone) $where = "phone='".$phone."'";
         else return [];
         // info
-        $q = DB::query("SELECT user_id, first_name, last_name, middle_name, email, gender_id, count_notifications FROM users WHERE ".$where." LIMIT 1;") or die (DB::error());
+        $q = DB::query("SELECT user_id, first_name, last_name, middle_name, email, phone, gender_id, count_notifications FROM users WHERE ".$where." LIMIT 1;") or die (DB::error());
         if ($row = DB::fetch_row($q)) {
             return [
                 'id' => (int) $row['user_id'],
@@ -57,11 +57,33 @@ class User {
     // TEST
 
     public static function owner_info() {
-        // your code here ...
+        if (Session::$user_id) {
+            return self::user_info(['user_id' => Session::$user_id]);
+        }
     }
 
     public static function owner_update($data = []) {
-        // your code here ...
+        // validate
+        $allow_fields = [
+            'first_name' => 'not empty',
+            'last_name' => 'not empty',
+            'middle_name' => '',
+            'email' => '',
+            'phone' => 'not empty'
+        ];
+        $data = array_intersect_key($data, $allow_fields);
+        if (empty($data)) return error_response(1006, 'One or more fields from the list must be present.', $allow_fields);
+        if (empty($data['first_name']) || empty($data['last_name']) || empty($data['phone'])) return error_response(1006, 'Fields first_name, last_name and phone must be not empty.');
+        $data['phone'] = preg_replace('~[^\d]+~', '', $data['phone']);
+        // update
+        if (Session::$user_id) {
+            $set_str = implode(",", array_map(function ($k, $v) {return $k . "='" . $v ."'";}, array_keys($data), array_values($data)));
+            $query = "UPDATE users SET " . $set_str . " WHERE user_id = " . Session::$user_id . " LIMIT 1;";
+            $query .= "INSERT INTO user_notifications (user_id, title, description, viewed, created) VALUES ('" . Session::$user_id . "', 'Update user', 'User was updated!', '0', '" . Session::$ts . "');";
+            DB::query($query) or die (DB::error());
+        }
+        // output
+        return $data;
     }
 
 }

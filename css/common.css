@@ -3,7 +3,7 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address,
 big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl,
 dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio,
+details, embed, figure, figcaption, footer, first_block, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio,
 video { margin: 0; padding: 0; border: 0; vertical-align: baseline;}
 
 html {line-height: 1.15; -webkit-text-size-adjust: 100%;}
@@ -67,7 +67,72 @@ img {width: 100%;}
 }
 
 /* ------------------------------- HOME ------------------------------- */
+.flash {
+    opacity: 0;
+}
+/* first */
+.btn_install {
+    display: inline-block; padding: 0 60px; min-width: 80px; background: #0962E8; color: #fff; border-radius: 10px; font-weight: 400;
+    height: 40px; width: auto; line-height: 40px; text-align: center; cursor: pointer;
+}
 
-/* header */
+#first_block {padding-top: 20px;}
 
-/* ... your code here ... */
+.first_wrap {display: flex;}
+.first_wrap > div {width: 50%;}
+.first_wrap > div:nth-child(2) {padding-left: 20px;}
+
+.first_title, .first_title2 {font-size: 44px; line-height: 130%; font-weight: 300; color: #47646D; letter-spacing: 0.2px; padding-top: 40px;}
+.first_title > span, .first_title2 > span {color: #0962E8;}
+.first_text, .first_text2 {max-width: 520px; color: #062B61; font-size: 16px; line-height: 150%; letter-spacing: 0.1px; padding-top: 16px;}
+.first_title2, .first_text2 {display: none;}
+
+.first_block_background {max-width: 100%;}
+.first_block_background_mobile {display: none;}
+
+@media only screen and (max-width: 800px) {
+    .first_wrap {flex-direction: column-reverse;}
+    .first_wrap > div {width: 100%;}
+    .first_title, .first_text {display: none;}
+    .first_title2, .first_text2 {display: block;}
+    .first_block_background {display: none;}
+    .first_block_background_mobile {display: block;}
+}
+
+
+.first_buttons {display: table; width: 320px; padding-top: 18px;}
+.first_buttons > div {display: table-cell; width: 50%; vertical-align: top;}
+.first_buttons > div:nth-child(1) {padding-right: 8px;}
+.first_buttons > div:nth-child(2) {padding-left: 8px;}
+
+.first_btn_install {margin-top: 24px; font-size: 16px; font-weight: 400; width: 320px; height: 54px; line-height: 54px;}
+.first_btn {display: flex; border: 1px solid #000; border-radius: 6px; width: 100%;}
+.first_btn > img {padding: 4px 10px; border-radius: 6px;}
+
+@media only screen and (max-width: 800px) {
+    .first_title {font-size: 32px; font-weight: 400;}
+    .first_text {font-size: 14px;}
+    .first_buttons {width: 100%;}
+    .first_btn_install {width: 100%;}
+    .first_btn {border-radius: 10px;}
+    .first_btn > img {padding: 10px 10px; border-radius: 12px;}
+}
+
+/* second */
+#second {padding-top: 115px;}
+
+.second_wrap {display: flex;}
+.second_wrap > div {width: 50%;}
+.second_wrap > div:nth-child(1) {padding-right: 130px;}
+
+.second_title {font-size: 44px; line-height: 130%; font-weight: 300; color: #47646D; letter-spacing: 0.2px;}
+.second_title > span {color: #0962E8;}
+.second_text {color: #66778F; font-weight: 300; font-size: 16px; line-height: 150%; letter-spacing: 0.1px; margin-top: 20px;}
+
+@media only screen and (max-width: 800px) {
+    #second {padding-top: 70px;}
+    .second_wrap {flex-direction: column;}
+    .second_wrap > div {width: 100%;}
+    .second_wrap > div:nth-child(1) {padding-right: 0;}
+    .second_title {font-size: 36px; font-weight: 400; margin-top: 30px;}
+}
